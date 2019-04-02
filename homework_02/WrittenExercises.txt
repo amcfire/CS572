@@ -1,0 +1,18 @@
+Written Exercises 
+
+1. Explain why do we want sometimes to use setImmediate instead of using setTimeout?
+
+2. Explain the differences between process.nextTick and setImmediate?
+
+3. Name 10 core modules that Node provides by default?
+
+1- http:  http module includes classes, methods and events to create Node.js http server.
+2- url:  url module includes methods for URL resolution and parsing.
+3- querystring:  querystring module includes methods to deal with query string.
+4- path:  path module includes methods to deal with file paths.
+5- fs:  fs module includes classes, methods, and events to work with file I/O.
+6- util:  util module includes utility functions useful for programmers. 
+7- zlib: zlib module includes tool to compress or decompress files.
+8- cluster:  cluster module helps into split a single Node process into multiple processes.
+9- crypto:  crypto mudule includes methods to handle OpenSSL cryptographic functions.
+10- os:  The os module provides a number of operating system-related utility methods.
