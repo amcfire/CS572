@@ -1,7 +1,8 @@
 Written Exercises 
 
 1. Explain why do we want sometimes to use setImmediate instead of using setTimeout?
-
+setTimeout calls the function after delay has finished, it uses a delay.
+setImmediate checks queue of I/O eventhandlers. If all I/O events in the current snapshot are processed, it executes the callback.
 
 2. Explain the differences between process.nextTick and setImmediate?
 About setImmediate:
