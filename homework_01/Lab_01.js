@@ -31,6 +31,7 @@ const function2=function (arrayForbidenWords) {
   });
 }
 
+
 String.prototype.filterWordsPromises=function2;
 console.log("step1");
 console.log("This House is Nice".filterWordsPromises(["House","Nice"]).then( e=> console.log(e) ));
@@ -58,6 +59,33 @@ const function3=async function(arrayForbidenWords){
 String.prototype.filterwords=function3;
 console.log("step1");
 console.log("this House is Nice".filterwords( ['House','Nice']).then(e=> console.log(e)));
+console.log("step2");
+
+// Exercise 1 Observables
+
+const function4=async function(arrayForbidenWords){
+	const { Observable, of, from } = rxjs;
+	const { map, reduce } = rxjs.operators;
+	let  tempArray= await this.split(" ");
+	from(tempArray)
+		.pipe(
+			map(obj => {
+      	if(arrayForbidenWords.find(b=>b===obj,false))
+ 				{
+					return "***"
+				} else {
+					return obj
+				}
+			}),
+			reduce((w1,w2)=> w1+' ' +w2)
+			
+			)
+		.subscribe((x) => console.log(x))
+} 
+
+String.prototype.filterwords=function4;
+console.log("step1");
+console.log("this House is Nice".filterwords( ['House','Nice']));
 console.log("step2");
 
 // Exercise 2
