@@ -66,7 +66,7 @@ console.log("step2");
 const function4=async function(arrayForbidenWords){
 	const { Observable, of, from } = rxjs;
 	const { map, reduce } = rxjs.operators;
-	let  tempArray= await this.split(" ");
+	let  tempArray= this.split(" ");
 	from(tempArray)
 		.pipe(
 			map(obj => {
