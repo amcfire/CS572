@@ -18,8 +18,8 @@ console.log("This House is Nice".filterwords(["House","Nice"]));
 // Exercise 1 Promises
 
 const function2=function (arrayForbidenWords) {
-  return new Promise((resolve, reject) => {
-    let  tempArray=this.split(" ")
+    let promise1 = new Promise((resolve, reject) => {
+    let tempArray=this.split(" ")
     .map(e=>{
     		if(arrayForbidenWords.find(b=>b===e,false))
       		return "*****";
@@ -29,12 +29,14 @@ const function2=function (arrayForbidenWords) {
     resolve(tempArray);
     reject("error");
   });
+  
+  promise1.then(e=>{console.log(e)}).catch("error");
+  return promise1
 }
-
 
 String.prototype.filterWordsPromises=function2;
 console.log("step1");
-console.log("This House is Nice".filterWordsPromises(["House","Nice"]).then( e=> console.log(e) ));
+console.log("This House is Nice".filterWordsPromises(["House","Nice"]));
 console.log("step2");
 
 // Exercise 1 Async
