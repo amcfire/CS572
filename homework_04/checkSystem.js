@@ -11,8 +11,8 @@ function checkSystem() {
         if (MyMachine.cpus().length < 2) {
             observer.error('Processor not supported');
         }
-        observer.next('You are gold!!!')
+        observer.next('System is checked succesfully');
     })
 }
-
 checkSystem().subscribe(res => console.log(res), err => console.log(err));
+
