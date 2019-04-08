@@ -1,0 +1,25 @@
+{
+  "name": "cs572",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amcfire/cs572.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amcfire/cs572/issues"
+  },
+  "homepage": "https://github.com/amcfire/cs572#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongodb": "^3.2.3",
+    "simple-encryption": "^1.0.1",
+    "simple-encryptor": "^2.0.0"
+  }
+}
