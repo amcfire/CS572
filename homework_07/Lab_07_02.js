@@ -20,6 +20,8 @@ function findSecretMessage(response) {
             console.log(decryptedJson);
             response.send(decryptedJson);
             response.end
+            // perform actions on the collection object
+            client.close();
         });
         console.log("ya se ejecuto el cursor")
     })

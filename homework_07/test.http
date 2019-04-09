@@ -1,0 +1,4 @@
+GET http://localhost:3000/secret HTTP/1.1
+###
+//para separar peticiones ###
+//Luego se puede mandar una peticion PUT o otras peticiones
