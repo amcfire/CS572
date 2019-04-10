@@ -1,0 +1,29 @@
+
+// This JSON file contains a list of all the zip codes in the US, Import it into
+// your MongoDB (mongoimport).
+// Use the Aggregation Framework to write 4 pipelines:
+
+// 1. Find all the zip codes in Washington state.
+db.zipcodes.aggregate([{$match: {state:"WA"}},
+                        {$project:{_id:1,state:"$state",city:"$city"}}])
+
+// 2. Find all the zip codes with a population less than 5000.
+db.zipcodes.aggregate([{$match: {pop:{$lt:5000}}},
+                        {$project:{_id:1,city:"$city",population:"$pop"}}])
+
+// 3. Find all cities that have more than one zip code, sort the results by state and city name.
+db.zipcodes.aggregate([{$group: {_id:{"state":"$state","city":"$city"},num_zipcodes:{$sum:1}}},
+                        {$match: {num_zipcodes:{$gt:1}}},
+                        {$sort:{_id:1}}])
+
+// 4. Display the least populated city in each state
+db.zipcodes.aggregate([{$group: {_id:{"state":"$state","city":"$city"},pop:{$sum:"$pop"}}},
+                        {$sort:{"_id.state":1,pop:1}},
+                        {$group:{_id:"$_id.state",city:{$first:"$_id.city"},population:{$first:"$pop"}}},
+                        {$sort:{_id:1}}])
+
+Creation script
+mongoimport --host homework07-shard-0/homework07-shard-00-00-hznuj.mongodb.net:27017,homework07-shard-00-01-hznuj.mongodb.net:27017,homework07-shard-00-02-hznuj.mongodb.net:27017 --ssl --username tempuser --password tempuser --authenticationDatabase admin --db homework09 --collection zipcodes --type json --file zips.json
+
+connection script
+mongo "mongodb+srv://homework07-hznuj.mongodb.net/test" --username tempuser
