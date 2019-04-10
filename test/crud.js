@@ -67,7 +67,7 @@ app.get('/lectures', function (req, res) {
         res.json(data)
     })
     // res.send(xxxx);
-    res.end();
+    //res.end();
 });
 
 //Get -> FindOne
