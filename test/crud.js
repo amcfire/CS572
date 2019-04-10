@@ -50,47 +50,25 @@ app.use(cors());
 app.use((req, res, next) => { req.db = db; next() })
 
 
-app.use(function (req, res, next) {
-    try {
-        if (req.method === 'POST')
-            JSON.parse(req.body);
-        next();
-    } catch (e) {
-        console.log(e)
-        res.send("not Valid JSON");
-        res.end();
-    }
-}
-);
-
-
 //Get ->  Find
 app.get('/lectures', function (req, res) {
-    //all info in db
     req.db.collection('lectures').find({}).toArray((err, data) => {
         res.json(data)
     })
-    // res.send(xxxx);
-    //res.end();
 });
 
 //Get -> FindOne
 app.get('/lectures/:id', function (req, res) {
     const id = req.params.id;
     const query = { _id: ObjectID(id) }
-    //const result = grades.find(grade => grade.id == id);
-    //specific info to return
-    //const result = yyyy;
     req.db.collection('lectures').findOne(query, (err, data) => {
         console.log(data)
         res.json(data)
-        res.end();
-
     })
-    //res.send(JSON.stringify(result));
 }
 );
 
+//si quiero seleccionar por curso
 // app.get('/lectures/:course', function (req, res) {
 //     const course = req.params.course;
 //     const query = { course }
@@ -101,7 +79,6 @@ app.get('/lectures/:id', function (req, res) {
 //         console.log(data)
 //         res.json(data)
 //         res.end();
-
 //     })
 //     //res.send(JSON.stringify(result));
 // }
@@ -110,11 +87,10 @@ app.get('/lectures/:id', function (req, res) {
 // post -> add
 // this is for create a new one
 app.post('/lectures', function (req, res) {
-    //how to add one lecture
-    console.log("pase por post")
+    console.log("starting post")
     req.db.collection('lectures').insertOne(req.body.data, (errinsert, resinsert) => {
-        if (errinsert) throw err;
-        console.log("res = " + resinsert)
+        if (errinsert) throw res;
+        //console.log("res = " + resinsert)
     })
     console.log("creation of lecture");
     res.send(req.body);
