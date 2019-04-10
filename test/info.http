@@ -1,0 +1,14 @@
+GET http://localhost:3000/lectures HTTP/1.1
+
+###
+
+POST http://localhost:3000/grades HTTP/1.1
+content-type: application/json
+
+[
+{"id":3, "name":"valentino Bernal","course":"MWAaa","grade":85}
+]
+###
+POST http://localhost:3000/grades HTTP/1.1
+?name='edwin Bernal'
+content-type: application/json
