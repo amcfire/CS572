@@ -22,6 +22,7 @@ const port = 3000;  //global var
 
 //DataSource
 const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
 const uri = "mongodb+srv://tempuser:tempuser@homework07-hznuj.mongodb.net/test?retryWrites=true";
 const client = new MongoClient(uri, { useNewUrlParser: true });
 let db;
@@ -42,8 +43,10 @@ let accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {
 app.use(morgan('combined', { stream: accessLogStream }))
 app.use(cors());
 
-var urlencodedParser = express.urlencoded({ extended: true });
-app.use(urlencodedParser);
+//var urlencodedParser = express.urlencoded({ extended: true });
+//app.use(urlencodedParser);
+
+//middleware de conexxion a bd
 app.use((req, res, next) => { req.db = db; next() })
 
 
@@ -53,6 +56,7 @@ app.use(function (req, res, next) {
             JSON.parse(req.body);
         next();
     } catch (e) {
+        console.log(e)
         res.send("not Valid JSON");
         res.end();
     }
@@ -73,24 +77,45 @@ app.get('/lectures', function (req, res) {
 //Get -> FindOne
 app.get('/lectures/:id', function (req, res) {
     const id = req.params.id;
-    const query = { course: id }
+    const query = { _id: ObjectID(id) }
     //const result = grades.find(grade => grade.id == id);
     //specific info to return
     //const result = yyyy;
     req.db.collection('lectures').findOne(query, (err, data) => {
         console.log(data)
         res.json(data)
+        res.end();
+
     })
     //res.send(JSON.stringify(result));
-    res.end();
 }
 );
 
+// app.get('/lectures/:course', function (req, res) {
+//     const course = req.params.course;
+//     const query = { course }
+//     //const result = grades.find(grade => grade.id == id);
+//     //specific info to return
+//     //const result = yyyy;
+//     req.db.collection('lectures').findOne(query, (err, data) => {
+//         console.log(data)
+//         res.json(data)
+//         res.end();
+
+//     })
+//     //res.send(JSON.stringify(result));
+// }
+// );
+
 // post -> add
 // this is for create a new one
-app.post('/Add', function (req, res) {
+app.post('/lectures', function (req, res) {
     //how to add one lecture
-    grades.push(req.body);
+    console.log("pase por post")
+    req.db.collection('lectures').insertOne(req.body.data, (errinsert, resinsert) => {
+        if (errinsert) throw err;
+        console.log("res = " + resinsert)
+    })
     console.log("creation of lecture");
     res.send(req.body);
     res.end();
@@ -98,7 +123,7 @@ app.post('/Add', function (req, res) {
 );
 
 // Put -> update
-app.put('/Update/:id', function (req, res) {
+app.put('/lectures/:id', function (req, res) {
     /*grades.find(grade => {
         if (grade.id == req.params.id) {
             grade.id = req.body.id;
@@ -115,7 +140,7 @@ app.put('/Update/:id', function (req, res) {
 );
 
 // Delete -> Delete
-app.delete('/Delete/:id', function (req, res) {
+app.delete('/lectures/:id', function (req, res) {
     /*
     const filtered = grades.filter(grade => { return grade.id !== req.params.id });
     grades = filtered;
