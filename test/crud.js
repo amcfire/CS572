@@ -65,8 +65,57 @@ app.get('/lectures/:id', function (req, res) {
         console.log(data)
         res.json(data)
     })
-}
-);
+});
+
+// post -> add
+// this is for create a new one
+app.post('/lectures', function (req, res) {
+    console.log("starting post")
+    req.db.collection('lectures').insertOne(req.body.data, (errinsert, resinsert) => {
+        if (errinsert) throw res;
+        //console.log("res = " + resinsert)
+        console.log("creation of lecture");
+        res.send(req.body);
+        res.end();
+    })
+});
+
+// Put -> update
+app.put('/lectures/:id', function (req, res) {
+    console.log("Updating...")
+    const id = req.params.id;
+    const query = { _id: ObjectID(id) }
+    req.db.collection('lectures').update(query, req.body.data, (err, data) => {
+        console.log(data)
+        res.send("element modified succesfully")
+    })
+
+    /*grades.find(grade => {
+        if (grade.id == req.params.id) {
+            grade.id = req.body.id;
+            grade.name = req.body.name;
+            grade.course = req.body.course;
+            grade.grade = req.body.grade;
+            return grade;
+        }
+    });*/
+    //res.send(grades.find(grade => grade.id == req.params.id));
+    //something to put
+    res.end();
+});
+
+// Delete -> Delete
+app.delete('/lectures/:id', function (req, res) {
+    const id = req.params.id;
+    const query = { _id: ObjectID(id) }
+    req.db.collection('lectures').remove(query, (err, data) => {
+        console.log(data)
+        res.json(data)
+    })
+});
+
+console.log(`Start listening port ${port}`);
+app.listen(port);
 
 //si quiero seleccionar por curso
 // app.get('/lectures/:course', function (req, res) {
@@ -84,47 +133,3 @@ app.get('/lectures/:id', function (req, res) {
 // }
 // );
 
-// post -> add
-// this is for create a new one
-app.post('/lectures', function (req, res) {
-    console.log("starting post")
-    req.db.collection('lectures').insertOne(req.body.data, (errinsert, resinsert) => {
-        if (errinsert) throw res;
-        //console.log("res = " + resinsert)
-    })
-    console.log("creation of lecture");
-    res.send(req.body);
-    res.end();
-}
-);
-
-// Put -> update
-app.put('/lectures/:id', function (req, res) {
-    /*grades.find(grade => {
-        if (grade.id == req.params.id) {
-            grade.id = req.body.id;
-            grade.name = req.body.name;
-            grade.course = req.body.course;
-            grade.grade = req.body.grade;
-            return grade;
-        }
-    });*/
-    //res.send(grades.find(grade => grade.id == req.params.id));
-    //something to put
-    res.end();
-}
-);
-
-// Delete -> Delete
-app.delete('/lectures/:id', function (req, res) {
-    /*
-    const filtered = grades.filter(grade => { return grade.id !== req.params.id });
-    grades = filtered;
-    res.send(grades);*/
-    //something to delete
-    res.end();
-}
-);
-
-console.log(`Start listening port ${port}`);
-app.listen(port);
