@@ -11,8 +11,8 @@ Content-Type: application/json
 
 {
     "data":{
-        "course":"EdwinCouse",
-        "lecture":"lecture lilii"
+        "course":"Curso4",
+        "lecture":"lecture 4"
     }
 }
 
@@ -27,15 +27,17 @@ POST http://localhost:3000/grades HTTP/1.1
 content-type: application/json
 
 ####
-DELETE http://localhost:3000/lectures/5cae6322baacc0408078c574  HTTP/1.1
+DELETE http://localhost:3000/lectures/5cae6b568eff611888b53f17  HTTP/1.1
 
 ###
-PUT http://localhost:3000/lectures/5cae66fc1ac3e503fca347c3 HTTP/1.1
+PUT http://localhost:3000/lectures/5cae6b578eff611888b53f19 HTTP/1.1
 Content-Type: application/json
 
 {
     "data":{
-        "course":"EdwinCouse",
+        "course":"Otro",
         "lecture":"lecture Maharishosa"
     }
 }
+
+
