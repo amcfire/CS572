@@ -1,4 +1,5 @@
 node_modules
 test/access.log
-test/access.log
 *.log
+test
+homework_12/app1

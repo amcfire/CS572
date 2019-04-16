@@ -1,4 +1,4 @@
-class University {
+class University1 {
     constructor(
         public name: String,
         public dept: String) { }
@@ -7,6 +7,6 @@ class University {
     }
 }
 
-var mum = new University('MUM', 'Computer Science');
+var mum = new University1('MUM', 'Computer Science');
 mum.graduation(2019);
 

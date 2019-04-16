@@ -12,8 +12,8 @@ const Client = new MongoClient(uri, { useNewUrlParser: true });
 let db
 
 var app = express();
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'jade')
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))

@@ -23,7 +23,7 @@ route.post('/', (res, req) => {
 route.patch('/:task_id', (res, req) => {
     let newInfo = req.body.data
     req.db.collection('tasks')
-        .update({ _id: 'task_id' }, newInfo, (errUpdate, resUpdate) => {
+        .update({ _id: 'task_id' }, { '$set': { 'status': 0 } }, (errUpdate, resUpdate) => {
             res.json({ Message: "Update ok" })
         })
 })
